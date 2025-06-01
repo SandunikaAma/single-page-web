@@ -5,7 +5,7 @@ const orderRoutes=require("./routes/orders");
 
 app.use(
     cors({
-        origin:'http://15.207.114.235:3000'
+        origin:'http://13.232.43.252:3000'
     })
 );
 app.use(express.json());

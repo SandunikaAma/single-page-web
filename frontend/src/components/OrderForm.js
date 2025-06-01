@@ -11,8 +11,13 @@ function OrderForm(){
     const [editingId,setEdditingId]=useState(null);
 
     const fetchOrders = ()=>{
-        axios.get('http://15.207.114.235:3009/api/orders').then(res=>{
-            setOrders(res.data);
+        axios.get('http://13.232.43.252:3009/api/orders')
+        .then(res=>{
+            setOrders(res.data)
+        .catch(err=>{
+            console.error("Failed to fetch orders", err);
+            setMsg("Error fetching orders");
+        })    
         });
 
     };
@@ -26,7 +31,7 @@ function OrderForm(){
         e.preventDefault();
         if(editingId){
             axios.put(
-                `http://15.207.114.235:3009/api/orders/update/${editingId}`,
+                `http://13.232.43.252:3009/api/orders/update/${editingId}`,
                 {name, email, order_details}
             ).then(()=>{
                 setMsg("Order Updated!");
@@ -35,7 +40,7 @@ function OrderForm(){
             });
         }else{
             axios.post(
-                "http://15.207.114.235:3009/api/orders/add",
+                "http://13.232.43.252:3009/api/orders/add",
                 {name, email, order_details}
             ).then(()=>{
                 setMsg("Order added!");
@@ -59,7 +64,7 @@ function OrderForm(){
 
     };
     const handleDelete=(id)=>{
-        axios.delete(`http://15.207.114.235:3009/api/orders/delete/${id}`).then(()=>{
+        axios.delete(`http://13.232.43.252:3009/api/orders/delete/${id}`).then(()=>{
             setMsg("Order Deleted!");
             fetchOrders();
         });
@@ -100,7 +105,7 @@ function OrderForm(){
                     <ul>
                         {orders.map((o,id)=>{
                             <li key={id}>
-                                <strong>o.name</strong>{o.email}<br/>
+                                <strong>o.name</strong>-{o.email}<br/>
                                 <em>{o.order_details}</em><br/>
                                 <button onClick={()=>handleEdit(o)}>Edit</button>
                                 <button onClick={()=>handleDelete(o.id)}>Delete</button>

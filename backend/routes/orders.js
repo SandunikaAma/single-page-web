@@ -28,7 +28,7 @@ router.get('/',(req,res)=>{
 });
 
 //update
-router.update('/update:id',(req,res)=>{
+router.put('/update:id',(req,res)=>{
     const {id}=req.params;
     const {name, email,order_details}=req.body;
     db.query(
